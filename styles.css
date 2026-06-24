@@ -1,0 +1,61 @@
+/* Core Styling Layout Overrides */
+.custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+
+/* Dynamic Animation Triggers */
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.msg-enter { animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-left { animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
+
+/* ========================================== */
+/* ADAPTIVE INTERFACE CSS TARGET PROFILES     */
+/* ========================================== */
+
+/* Feature 1: Senior Mode Optimization Profile Ruleset */
+body.senior-mode {
+    font-size: 1.25rem !important;
+    background-color: #000000 !important;
+}
+body.senior-mode #app-sidebar { width: 340px !important; background-color: #111 !important; }
+body.senior-mode #message-input { font-size: 1.2rem !important; line-height: 1.6 !important; }
+body.senior-mode .p-3, body.senior-mode .p-4 { padding: 1.5rem !important; }
+body.senior-mode button, body.senior-mode label { min-height: 52px !important; font-size: 1.1rem !important; background-color: #1e1b4b !important; color: #fff !important; border: 2px solid #4f46e5 !important; }
+body.senior-mode .msg-bubble { background-color: #111827 !important; border: 2px solid #374151 !important; color: #ffffff !important; font-size: 1.25rem !important; font-weight: 700 !important; }
+
+/* Feature 1: Kids Mode Optimization Profile Ruleset */
+body.kids-mode {
+    background: radial-gradient(circle, #1e1b4b 0%, #090514 100%) !important;
+}
+body.kids-mode #sidebar-logo { font-size: 1.5rem !important; color: #f43f5e !important; letter-spacing: 0.1em; }
+body.kids-mode .msg-bubble { border-radius: 24px !important; background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%) !important; color: white !important; font-size: 1.05rem !important; box-shadow: 0 4px 14px rgba(244,63,94,0.3) !important; }
+body.kids-mode #btn-send { background: #10b981 !important; border-radius: 50% !important; transform: scale(1.1); }
+
+/* Feature 1: Compact Power-User Mode Ruleset */
+body.compact-mode { font-size: 0.8rem !important; font-family: monospace !important; }
+body.compact-mode #app-sidebar { width: 220px !important; }
+body.compact-mode .msg-bubble { border-radius: 2px !important; padding: 4px 8px !important; background: #1f2937 !important; border-left: 2px solid #6366f1 !important; }
+
+/* Interactive Tic Tac Toe Grid Rendering rules */
+.ttt-cell {
+    width: 70px; height: 70px;
+    background-color: #1f2937;
+    border: 2px solid #374151;
+    font-size: 1.75rem;
+    font-weight: 900;
+    display: flex; justify-content: center; items-center;
+    cursor: pointer; transition: all 0.15s ease;
+}
+.ttt-cell:hover { background-color: #2d3748; }
+
+/* Emoji Hover Tooltip Class */
+.emoji-explain-target {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted #818cf8;
+}

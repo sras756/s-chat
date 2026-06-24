@@ -1,30 +1,163 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>s chat</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Supherhero">
-    <meta name="keywords" content="programming hero,learn programming">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon">
-    
-
-    <!--custom css-->
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-chat | Intergenerational Bridge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-<div id="app">
-    <h3>Hello World</h3>
+<body class="bg-gray-900 text-gray-100 h-screen flex overflow-hidden font-sans select-none relative" id="app-body">
 
-    
+    <div id="toast-container" class="fixed top-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
 
-</div>
+    <div id="tone-modal" class="hidden absolute bottom-24 right-20 bg-gray-800 border border-gray-700 p-4 rounded-xl shadow-2xl z-50 w-72">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2 flex items-center justify-between">
+            <span>AI Tone Changer</span>
+            <button onclick="UI.toggleToneModal(false)" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+        </h4>
+        <input type="range" id="tone-slider" min="1" max="4" step="1" value="1" class="w-full accent-indigo-500 mb-2">
+        <div class="flex justify-between text-[10px] text-gray-400 font-bold mb-3">
+            <span>Draft</span>
+            <span>Polite</span>
+            <span>Gentle</span>
+            <span>Slang</span>
+        </div>
+        <button id="btn-apply-tone" class="w-full bg-indigo-600 hover:bg-indigo-500 text-xs py-1.5 rounded font-bold transition">Rewrite Message</button>
+    </div>
 
+    <div id="auth-modal" class="fixed inset-0 bg-gray-950/90 backdrop-blur-md flex items-center justify-center z-[60]">
+        <div class="bg-gray-800 p-8 rounded-2xl max-w-md w-full border border-gray-700 shadow-2xl">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-black text-indigo-400 tracking-tight">S-chat</h2>
+                <p class="text-xs text-gray-400 mt-1">Bridging generations with adaptive security</p>
+            </div>
+            <div class="space-y-3">
+                <input type="email" id="auth-email" placeholder="Email Address" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-indigo-500">
+                <input type="password" id="auth-password" placeholder="Password" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-indigo-500">
+                
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Select Interface Mode (Adaptive Profile)</label>
+                    <select id="auth-age-profile" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                        <option value="standard" selected>Adult / Standard View</option>
+                        <option value="kids">Kids Mode (Playful & Large Icons)</option>
+                        <option value="senior">Senior Mode (High Contrast & Big Buttons)</option>
+                        <option value="compact">Power User Mode (Compact Terminal)</option>
+                    </select>
+                </div>
 
+                <div class="pt-2 space-y-2">
+                    <button id="btn-login" class="w-full bg-indigo-600 hover:bg-indigo-500 py-2.5 rounded-lg font-bold text-sm transition">Sign In</button>
+                    <button id="btn-register" class="w-full border border-gray-600 text-gray-300 hover:bg-gray-700/30 py-2.5 rounded-lg font-bold text-sm transition">Register Account</button>
+                    <button id="btn-google" class="w-full bg-white text-gray-900 py-2.5 rounded-lg font-bold text-sm transition flex items-center justify-center gap-2"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4">Continue with Google</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="app-container" class="hidden w-full h-full flex">
+        
+        <aside id="app-sidebar" class="w-76 bg-gray-800 border-r border-gray-700 flex flex-col flex-shrink-0 z-20">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-850">
+                <div>
+                    <h1 id="sidebar-logo" class="font-black text-base tracking-wider text-indigo-400">SRAS NEXUS</h1>
+                    <p id="user-display-id" class="text-xs text-green-400 font-mono mt-0.5">Connecting Profile...</p>
+                </div>
+                <button id="btn-logout" class="text-gray-400 hover:text-red-400 p-2 transition"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
 
+            <div class="p-2 border-b border-gray-700 bg-gray-900/30 flex gap-1">
+                <button onclick="UI.applyUIMode('senior')" class="flex-1 py-1 text-[10px] uppercase font-bold bg-gray-700 hover:bg-indigo-600 rounded">Senior</button>
+                <button onclick="UI.applyUIMode('kids')" class="flex-1 py-1 text-[10px] uppercase font-bold bg-gray-700 hover:bg-indigo-600 rounded">Kids</button>
+                <button onclick="UI.applyUIMode('standard')" class="flex-1 py-1 text-[10px] uppercase font-bold bg-gray-700 hover:bg-indigo-600 rounded">Adult</button>
+            </div>
 
-<!--main js-->
-<script src="js/main.js"></script>
+            <div id="contact-list" class="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar"></div>
+        </aside>
+
+        <div class="flex-1 flex flex-row bg-gray-950 relative">
+            
+            <main class="flex-1 flex flex-col min-w-0 border-r border-gray-800 relative">
+                
+                <header class="h-16 border-b border-gray-800 bg-gray-900/90 flex items-center justify-between px-6 z-10">
+                    <div class="flex items-center gap-3">
+                        <h3 id="chat-title" class="font-bold text-gray-100 flex items-center gap-2">Global Channel</h3>
+                        <span id="safety-indicator" class="text-[10px] bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider"><i class="fas fa-shield-alt"></i> Safe AI Monitoring</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="btn-toggle-co-play" class="bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500/30 text-indigo-300 text-xs px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-2">
+                            <i class="fas fa-gamepad"></i> <span>Co-Play Activities</span>
+                        </button>
+                    </div>
+                </header>
+
+                <div id="context-card-popup" class="hidden bg-gray-800/95 border-b border-gray-700 p-3 text-xs text-gray-300 flex flex-col gap-1 shadow-lg animate-fade-in z-20">
+                    <div class="font-bold text-indigo-400 flex items-center gap-1 uppercase text-[9px] tracking-wider"><i class="fas fa-history"></i> Context Memory Recall Assistant:</div>
+                    <div id="context-card-body" class="italic text-gray-400 pl-2 border-l border-gray-600 space-y-1"></div>
+                </div>
+
+                <div id="messages-container" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar"></div>
+
+                <div id="media-preview" class="hidden mx-6 my-2 bg-gray-800 border border-gray-700 p-3 rounded-xl flex items-center justify-between shadow-2xl">
+                    <div class="flex items-center gap-2 truncate text-sm">
+                        <i class="fas fa-file-image text-indigo-400"></i>
+                        <span id="preview-filename" class="truncate text-gray-300 font-medium">file.png</span>
+                    </div>
+                    <button id="btn-clear-media" class="text-gray-400 hover:text-red-400"><i class="fas fa-times-circle"></i></button>
+                </div>
+
+                <footer class="p-4 bg-gray-900 border-t border-gray-800">
+                    <div class="flex items-end gap-2 max-w-5xl mx-auto relative">
+                        
+                        <label id="footer-attach-btn" class="cursor-pointer text-gray-400 hover:text-indigo-400 p-3.5 bg-gray-800 rounded-xl border border-gray-700 transition flex-shrink-0 flex items-center justify-center">
+                            <i class="fas fa-paperclip text-lg"></i>
+                            <input type="file" id="media-input" accept="image/*,video/*" class="hidden">
+                        </label>
+
+                        <div class="flex-1 bg-gray-800 border border-gray-700 rounded-xl focus-within:border-indigo-500 transition relative flex items-center">
+                            <textarea id="message-input" rows="1" placeholder="Type a message safely..." class="w-full bg-transparent p-3 pr-24 text-sm focus:outline-none resize-none max-h-32 text-white custom-scrollbar"></textarea>
+                            
+                            <div class="absolute right-3 flex items-center gap-1.5">
+                                <button id="btn-tone-trigger" class="text-gray-400 hover:text-indigo-400 text-sm font-bold bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="AI Tone Rephraser">AI Tone</button>
+                            </div>
+                        </div>
+
+                        <button id="btn-mic-dictate" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-400 hover:text-red-400 p-3.5 rounded-xl transition flex-shrink-0">
+                            <i class="fas fa-microphone text-lg"></i>
+                        </button>
+
+                        <button id="btn-send" class="bg-indigo-600 hover:bg-indigo-500 text-white p-3.5 rounded-xl transition flex-shrink-0 shadow-lg">
+                            <i class="fas fa-paper-plane text-lg"></i>
+                        </button>
+                    </div>
+                </footer>
+            </main>
+
+            <aside id="co-play-panel" class="hidden w-96 bg-gray-900 border-l border-gray-800 flex flex-col flex-shrink-0 animate-slide-left z-10">
+                <header class="h-16 border-b border-gray-800 px-4 flex items-center justify-between bg-gray-950">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-gamepad text-indigo-400 text-xl"></i>
+                        <h4 class="font-bold text-sm tracking-wide">Co-Play Activities Zone</h4>
+                    </div>
+                    <button id="btn-close-coplay" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+                </header>
+                
+                <div class="p-3 border-b border-gray-800 bg-gray-950/40 flex gap-2">
+                    <button onclick="GameEngine.initializeGame('tic-tac-toe')" class="flex-1 py-2 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white text-xs font-bold rounded border border-indigo-500/20 transition">Tic-Tac-Toe</button>
+                    <button onclick="GameEngine.initializeGame('canvas')" class="flex-1 py-2 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold rounded border border-purple-500/20 transition">Co-Draw Canvas</button>
+                </div>
+
+                <div id="game-workspace-render" class="flex-1 flex flex-col p-4 justify-center items-center bg-gray-950/80">
+                    <div class="text-center p-6 border border-dashed border-gray-700 rounded-xl text-gray-500 max-w-xs">
+                        <i class="fas fa-dice text-4xl mb-3 block"></i>
+                        <p class="text-xs">Select an activity frame node above to launch a synchronized real-time interface thread session.</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
